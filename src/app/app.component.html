@@ -11,21 +11,45 @@
     </div>
 </div>
 <div class="main-container">
-    <div class="conatiner">
+    <div class="container">
         <div class="row">
-            <div class="select-file">
-                <mat-card>
-                    <label>Select File (only image or pdf)</label>
-                    <div>
-                        <input type="file" (change)="selectFile($event)" />
-                    </div>
-                </mat-card>
+            <div class="col-sm-5">
+                <div class="select-file">
+                    <mat-card>
+                        <label>Select File (only image or pdf)</label>
+                        <div>
+                            <input type="file" (change)="selectFile($event)" />
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="or">OR </div>
+                <div class="sketch-container">
+                    <div id="sketch-holder"></div>
+                </div>
+                <div class="clear">
+                    <button type="button" class="btn btn-dark" (click)="Clear()">Clear Skectch</button>
+                </div>
             </div>
-        </div>
-        <div class="or">OR </div>
-        <div class="row">
-            <div class="sketch-container border">
-                <div id="sketch-holder"></div>
+            <div class="col-sm-2 medium">
+                <button *ngIf="!this.Loading" type="button" class="btn btn-success" (click)="Process()">Process</button>
+                <div class="spinner">
+                    <mat-spinner [diameter]="35" *ngIf="this.Loading"></mat-spinner>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="column">
+                    <div class="left">
+                        <div *ngIf="!this.Result">
+                            <img src="./../assets/photo.png">
+                        </div>
+                        <div *ngIf="this.Result">
+                            <div *ngFor="let image of images">
+                                <img class="image-container" [src]="image">
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

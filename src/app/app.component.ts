@@ -8,6 +8,15 @@ import p5 from 'p5';
 })
 export class AppComponent implements OnInit
 {
+    Loading = false;
+    Result = false;
+    images = [
+      "./../assets/fish1.jpg",
+      "./../assets/fish2.jpg",
+      "./../assets/fish3.jpg",
+      "./../assets/fish4.jpg",
+      "./../assets/fish5.jpg"
+    ];
     canvas: any;
     sw = 2;
     c = [];
@@ -32,7 +41,7 @@ export class AppComponent implements OnInit
     {
         const sketch = s => {
             s.setup = () => {
-              const canvas2 = s.createCanvas(500, 500);
+              const canvas2 = s.createCanvas(420, 500);
               // creating a reference to the div here positions it so you can put things above and below
               // where the sketch is displayed
               canvas2.parent('sketch-holder');
@@ -79,6 +88,21 @@ export class AppComponent implements OnInit
 
         this.canvas = new p5(sketch);
 
+        }
+
+        Clear()
+        {
+          window.location.reload();
+        }
+
+        Process()
+        {
+          this.Loading = true;
+          setTimeout(()=>
+          {
+            this.Loading = false;
+            this.Result = true;
+          }, 2500);
         }
 }
 
