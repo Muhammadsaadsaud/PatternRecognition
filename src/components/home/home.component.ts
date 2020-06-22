@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
     Refresh = false;
     capturedImage: any;
     images: any;
+    imageSrc: string = '';
     canvas1: any;
     sw = 2;
     c = [];
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
         this.fileData = event.target.files[0];
 
         if (this.fileData.type === 'image/jpeg' || this.fileData.type === 'application/pdf' || this.fileData.type === 'image/png') {
+          console.log(this.fileData);
         
         }
         else {
@@ -109,7 +111,7 @@ export class HomeComponent implements OnInit {
           {
             if (this.fileData && this.fileData!=null)
             {
-              this.body = this.fileData
+              this.body = this.imageSrc
             }
             else
             {
@@ -151,6 +153,24 @@ export class HomeComponent implements OnInit {
           this.Result = false;
           this.fileData = null;
           this.Clear();
+        }
+
+
+        handleInputChange(e) {
+          var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+          var pattern = /image-*/;
+          var reader = new FileReader();
+          if (!file.type.match(pattern)) {
+            alert('invalid format');
+            return;
+          }
+          reader.onload = this._handleReaderLoaded.bind(this);
+          reader.readAsDataURL(file);
+        }
+        _handleReaderLoaded(e) {
+          let reader = e.target;
+          this.imageSrc = reader.result;
+          console.log(this.imageSrc)
         }
 
 
